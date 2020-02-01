@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{768B8AE3-69AF-39BB-3B73-30597C915C06}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SelfDestroy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleGravity.cs">
     <Files>
-      <File FileName="Assets/Scripts/PieceGenerator.cs" Line="50" Column="15" />
-      <File FileName="Assets/Scripts/SelfDestroy.cs" Line="7" Column="20" />
+      <File FileName="Assets/Scripts/PieceGenerator.cs" Line="44" Column="69" />
+      <File FileName="Assets/Scripts/SelfDestroy.cs" />
+      <File FileName="Assets/Scripts/SimpleGravity.cs" Line="17" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,7 +11,7 @@
           <Node name="ReverseFruitNinja2D" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="SelfDestroy.cs" selected="True" />
+                <Node name="SimpleGravity.cs" selected="True" />
               </Node>
             </Node>
           </Node>

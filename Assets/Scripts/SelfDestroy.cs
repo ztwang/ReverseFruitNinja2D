@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelfDestroy : MonoBehaviour
 {
-    public float zThreshold = -8f;
+    public float yThreshold = -8f;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,9 +14,9 @@ public class SelfDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z <= zThreshold)
+        if (transform.position.y <= yThreshold)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

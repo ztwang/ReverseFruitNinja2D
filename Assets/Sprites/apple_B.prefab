@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6066185144623734187}
   - component: {fileID: 5284341759739508456}
   - component: {fileID: 1932279420772082385}
-  - component: {fileID: -5391517111430793699}
+  - component: {fileID: -4117666483315348085}
+  - component: {fileID: -5537236330125209270}
   m_Layer: 0
   m_Name: apple_B
   m_TagString: Untagged
@@ -109,24 +110,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6666667, y: 2.6666667}
   m_EdgeRadius: 0
---- !u!50 &-5391517111430793699
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &-4117666483315348085
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6270195381605146568}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e98c15c40a316424e8cb28b52009648d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yThreshold: -8
+--- !u!114 &-5537236330125209270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6270195381605146568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f582af1c7ad94e39ae2ce87ee9d5f97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 9.8
+  velocity: {x: 0, y: 0, z: 0}

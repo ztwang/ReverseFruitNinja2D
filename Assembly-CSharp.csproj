@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PieceGenerator.cs" />
     <Compile Include="Assets\Scripts\SelfDestroy.cs" />
+    <Compile Include="Assets\Scripts\SimpleGravity.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/zhetaowang/Development/UnityProjects/ReverseFruitNinja2D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

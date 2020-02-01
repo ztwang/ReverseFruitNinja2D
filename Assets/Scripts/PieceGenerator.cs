@@ -46,7 +46,7 @@ public class PieceGenerator : MonoBehaviour
         GameObject pieceB = GameObject.Instantiate(pieceBPrefab);
         pieceA.transform.position = leftPos.position;
         pieceB.transform.position = rightPos.position;
-        pieceA.GetComponent<Rigidbody2D>().velocity = leftInjectDirection * injectSpeed;
-        pieceB.GetComponent<Rigidbody2D>().velocity = rightInjectDirection * injectSpeed;
+        pieceA.GetComponent<SimpleGravity>().velocity = leftInjectDirection * injectSpeed;
+        pieceB.GetComponent<SimpleGravity>().velocity = rightInjectDirection * injectSpeed;
     }
 }
