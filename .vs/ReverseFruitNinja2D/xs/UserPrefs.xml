@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{768B8AE3-69AF-39BB-3B73-30597C915C06}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SelfDestroy.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PieceGenerator.cs" Line="50" Column="15" />
+      <File FileName="Assets/Scripts/SelfDestroy.cs" Line="7" Column="20" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ReverseFruitNinja2D" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="SelfDestroy.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8035bbfc-2c23-4f28-8793-cdd56a27fc97" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
