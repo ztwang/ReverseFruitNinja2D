@@ -6,6 +6,7 @@ public class PieceGenerator : MonoBehaviour
 {
     public List<Transform> leftGroup;
     public List<Transform> rightGroup;
+    // TODO: create base fruit class
     public List<GameObject> pieceAList;
     public List<GameObject> pieceBList;
 
@@ -18,11 +19,16 @@ public class PieceGenerator : MonoBehaviour
 
 
     private float generateTimer;
+    private InputHandler mainInputHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         generateTimer = 0.0f;
+        GameObject[] tempList = GameObject.FindGameObjectsWithTag("Main");
+        Debug.Log("main object found: ");
+        Debug.Log(tempList.Length);
+        mainInputHandler = tempList[0].GetComponent<InputHandler>();
     }
 
     // Update is called once per frame
@@ -48,5 +54,8 @@ public class PieceGenerator : MonoBehaviour
         pieceB.transform.position = rightPos.position;
         pieceA.GetComponent<SimpleGravity>().velocity = leftInjectDirection * injectSpeed;
         pieceB.GetComponent<SimpleGravity>().velocity = rightInjectDirection * injectSpeed;
+
+        mainInputHandler.ActiveFruitList.Add(pieceA);
+        mainInputHandler.ActiveFruitList.Add(pieceB);
     }
 }
