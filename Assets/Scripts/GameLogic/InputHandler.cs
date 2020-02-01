@@ -19,15 +19,45 @@ public class InputHandler : MonoBehaviour
         List<Touch> Touches = TouchHelper.GetTouches();
         if (Touches.Count > 0)
         {
-            Debug.Log("Detected a touch!");
-            Touch touch = Touches[0];
-            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            foreach (GameObject fruitPiece in ActiveFruitList)
+            foreach (Touch touch in Touches)
             {
-                if (fruitPiece.GetComponent<BoxCollider2D>().OverlapPoint(touchPosition))
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                switch (touch.phase)
                 {
-                    // fruit is grabbed by the touch
-                    fruitPiece.GetComponent<SimpleGravity>().velocity = Vector3.zero;
+                    case TouchPhase.Began:
+                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        {
+                            if (fruitPiece.GetComponent<BoxCollider2D>().OverlapPoint(touchPosition))
+                            {
+                                // fruit is grabbed by the touch
+                                fruitPiece.GetComponent<SimpleGravity>().velocity = Vector3.zero;
+                                fruitPiece.GetComponent<SimpleGravity>().gravity = 0.0f;
+                                fruitPiece.GetComponent<FruitBase>().GrabBy(touch.fingerId);
+                            }
+                        }
+                        break;
+
+                    case TouchPhase.Moved:
+                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        {
+                            if (fruitPiece.GetComponent<FruitBase>().IsGrabbedBy(touch.fingerId))
+                            {
+                                fruitPiece.transform.position =
+                                        new Vector3(touchPosition.x, touchPosition.y, 0);
+                            }
+                        }
+                        break;
+
+                    case TouchPhase.Ended:
+                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        {
+                            if (fruitPiece.GetComponent<FruitBase>().IsGrabbedBy(touch.fingerId))
+                            {
+                                fruitPiece.GetComponent<FruitBase>().Release();
+                                fruitPiece.GetComponent<SimpleGravity>().gravity = SimpleGravity.GRAVITY;                              
+                            }
+                        }
+                        break;
                 }
             }
         }
