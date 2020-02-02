@@ -18,6 +18,7 @@ public class Judge : MonoBehaviour
     // count down timer
     private float timer;
     private bool started;
+    private bool isHalfway;
     private bool finished;
 
     private static int highScore;
@@ -29,6 +30,7 @@ public class Judge : MonoBehaviour
     {
         timer = preCountDown;
         started = false;
+        isHalfway = false;
         finished = false;
         score = 0;
         highScore = PlayerPrefs.GetInt("high_score");
@@ -64,6 +66,15 @@ public class Judge : MonoBehaviour
                     started = true;
                     StartRound();
                 }
+            }
+            else if (started && !isHalfway && timer <= (countDown / 2.0f))
+            {
+                // Only do once
+                // Increase the spawn frequency half way of the game.
+                isHalfway = true;
+                gameObject.GetComponent<PieceGenerator>().generateInterval =
+                    gameObject.GetComponent<PieceGenerator>().generateInterval/ 2.0f;
+                gameObject.GetComponent<AudioSource>().pitch += 0.3f;
             }
         }
 
