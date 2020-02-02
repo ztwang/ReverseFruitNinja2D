@@ -12,6 +12,7 @@ public class Judge : MonoBehaviour
     // UI elements
     public Text timerLabel;
     public Text scoreLabel;
+    private int timerNumber;
 
     public AudioClip fruitSoundEffect;
 
@@ -117,7 +118,15 @@ public class Judge : MonoBehaviour
 
     void UpdateUI()
     {
-        timerLabel.text = Mathf.CeilToInt(timer).ToString();
+        if (timerNumber != Mathf.CeilToInt(timer))
+        {
+            timerNumber = Mathf.CeilToInt(timer);
+            timerLabel.text = timerNumber.ToString();
+            if (started && timerNumber <= 10)
+            {
+                timerLabel.GetComponent<UIHeartBeatAnimation>().Animate();
+            }
+        }
     }
 
     public bool CanRepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)

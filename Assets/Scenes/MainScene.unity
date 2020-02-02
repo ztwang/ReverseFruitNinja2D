@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 1101321621}
   - component: {fileID: 1101321623}
   - component: {fileID: 1101321622}
+  - component: {fileID: 1101321624}
   m_Layer: 5
   m_Name: TimerLabel
   m_TagString: Untagged
@@ -537,6 +538,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101321620}
   m_CullTransparentMesh: 0
+--- !u!114 &1101321624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101321620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64722c2e2443f483ead79bee0b441c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  startScale: 1
+  peakScale: 1.5
+  endScale: 1
+  growSpeed: 6
+  fadeLerp: 0.1
 --- !u!1 &1116388178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,6 +1275,7 @@ MonoBehaviour:
   grabbedPieceList: []
   fusionDistance: 3.5
   debugLabel: {fileID: 1855069592}
+  enableDebug: 0
 --- !u!82 &1676928150
 AudioSource:
   m_ObjectHideFlags: 0
