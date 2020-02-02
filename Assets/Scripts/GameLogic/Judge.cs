@@ -13,6 +13,8 @@ public class Judge : MonoBehaviour
     public Text timerLabel;
     public Text scoreLabel;
 
+    public AudioClip fruitSoundEffect;
+
     // count down timer
     private float timer;
     private bool started;
@@ -154,6 +156,8 @@ public class Judge : MonoBehaviour
         pieceGenerator.ActiveFruitList.Remove(FruitPiece2);
         Destroy(FruitPiece1);
         Destroy(FruitPiece2);
+
+        gameObject.GetComponent<AudioSource>().PlayOneShot(fruitSoundEffect, 1.0f);
 
         score += 5;
         scoreLabel.text = "Score: " + score;
