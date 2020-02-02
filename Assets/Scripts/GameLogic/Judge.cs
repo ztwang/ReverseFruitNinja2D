@@ -18,7 +18,8 @@ public class Judge : MonoBehaviour
     private bool started;
     private bool finished;
 
-    private int score;
+    private static int highScore;
+    private static int score;
 
     private GameFlowController gameFlowController;
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class Judge : MonoBehaviour
         started = false;
         finished = false;
         score = 0;
+        highScore = PlayerPrefs.GetInt("high_score");
 
         if (!timerLabel)
         {
@@ -38,7 +40,7 @@ public class Judge : MonoBehaviour
         {
             Debug.LogError("No score label!");
         }
-
+        
         gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
     }
 
@@ -63,7 +65,7 @@ public class Judge : MonoBehaviour
             }
         }
 
-        updateUI();
+        UpdateUI();
     }
 
     void StartRound()
@@ -79,13 +81,21 @@ public class Judge : MonoBehaviour
         Debug.Log("Round finished!");
         finished = true;
         
+        if (score > highScore)
+        {
+            highScore = score;
+            PlayerPrefs.SetInt("high_score", highScore);        
+        }
+        PlayerPrefs.SetInt("score", score);
+
         if (gameFlowController)
         {
+            // Switch to end scene
             gameFlowController.GoToScene(2);
         }
     }
 
-    void updateUI()
+    void UpdateUI()
     {
         timerLabel.text = Mathf.CeilToInt(timer).ToString();
     }
