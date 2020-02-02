@@ -9,7 +9,9 @@ public class Judge : MonoBehaviour
     public float preCountDown = 3f;
     public float countDown = 60f;
 
+    // UI elements
     public Text timerLabel;
+    public Text scoreLabel;
 
     // count down timer
     private float timer;
@@ -25,13 +27,19 @@ public class Judge : MonoBehaviour
         timer = preCountDown;
         started = false;
         finished = false;
+        score = 0;
+
         if (!timerLabel)
         {
             Debug.LogError("No UI timer label!");
         }
-        gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
+        timerLabel.color = Color.yellow;
+        if (!scoreLabel)
+        {
+            Debug.LogError("No score label!");
+        }
 
-        score = 0;
+        gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
     }
 
     // Update is called once per frame
@@ -63,6 +71,7 @@ public class Judge : MonoBehaviour
         Debug.Log("Round started!");
         timer = countDown;
         started = true;
+        timerLabel.color = Color.green;
     }
 
     void FinishRound()
@@ -78,21 +87,18 @@ public class Judge : MonoBehaviour
 
     void updateUI()
     {
-        if (timerLabel)
-        {
-            timerLabel.text = Mathf.CeilToInt(timer).ToString();
-        }
+        timerLabel.text = Mathf.CeilToInt(timer).ToString();
     }
 
     public bool CanRepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
     {
         // Disabling this rule for now
-        //if (!FruitPiece1.GetComponent<FruitBase>().IsGrabbed()
-        //    && !FruitPiece2.GetComponent<FruitBase>().IsGrabbed())
-        //{
-        //    Debug.Log("At least one of the piece must be grabbed!");
-        //    return false;
-        //}
+        if (!FruitPiece1.GetComponent<FruitBase>().IsGrabbed()
+            || !FruitPiece2.GetComponent<FruitBase>().IsGrabbed())
+        {
+            Debug.Log("At least one of the piece must be grabbed!");
+            return false;
+        }
 
         if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType)
         {
@@ -139,7 +145,7 @@ public class Judge : MonoBehaviour
         Destroy(FruitPiece2);
 
         score += 5;
-        Debug.Log("Scored! Current score: " + score);
+        scoreLabel.text = "Score: " + score;
         return true;
     }
 }

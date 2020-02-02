@@ -23,13 +23,13 @@ public class DistanceFusionChecker : MonoBehaviour
             {
                 if (judge)
                 {
-                    var p1 = grabbedPieceList[i].gameObject;
-                    var p2 = grabbedPieceList[j].gameObject;
-                    if (judge.CanRepairFruit(p1, p2))
+                    var p1 = grabbedPieceList[i];
+                    var p2 = grabbedPieceList[j];
+                    if (judge.CanRepairFruit(p1.gameObject, p2.gameObject))
                     {
-                        grabbedPieceList.RemoveAt(i);
-                        grabbedPieceList.RemoveAt(j);
-                        judge.RepairFruit(p1, p2);
+                        grabbedPieceList.Remove(p1);
+                        grabbedPieceList.Remove(p2);
+                        judge.RepairFruit(p1.gameObject, p2.gameObject);
                     }
                 }
             }

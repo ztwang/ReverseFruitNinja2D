@@ -6,16 +6,12 @@ public class PieceGenerator : MonoBehaviour
 {
     public List<GameObject> ActiveFruitList;
     
-    public List<Transform> leftGroup;
-    public List<Transform> rightGroup;
-    // TODO: create base fruit class
+    public List<GameObject> leftSpawnGroup;
+    public List<GameObject> rightSpawnGroup;
+
     public List<GameObject> pieceAList;
     public List<GameObject> pieceBList;
     public List<GameObject> fullFruitList;
-
-    public Vector3 leftInjectDirection;
-    public Vector3 rightInjectDirection;
-    public float injectSpeed = 1.0f;
 
     public float generateInterval = 2.0f;
 
@@ -34,24 +30,36 @@ public class PieceGenerator : MonoBehaviour
         while (generateTimer >= generateInterval)
         {
             generateTimer -= generateInterval;
-            generateAndInject();
+            generateAndLaunch();
         }
     }
 
-    void generateAndInject()
+    void generateAndLaunch()
     {
-        Transform leftPos = leftGroup[Random.Range(0, leftGroup.Count)];
-        Transform rightPos = rightGroup[Random.Range(0, rightGroup.Count)];
-        GameObject pieceAPrefab = pieceAList[Random.Range(0, pieceAList.Count)];
-        GameObject pieceBPrefab = pieceBList[Random.Range(0, pieceBList.Count)];
-        GameObject pieceA = GameObject.Instantiate(pieceAPrefab);
-        GameObject pieceB = GameObject.Instantiate(pieceBPrefab);
-        pieceA.transform.position = leftPos.position;
-        pieceB.transform.position = rightPos.position;
-        pieceA.GetComponent<SimpleGravity>().velocity = leftInjectDirection * injectSpeed;
-        pieceB.GetComponent<SimpleGravity>().velocity = rightInjectDirection * injectSpeed;
+        int fruitType = Random.Range(0, pieceAList.Count);
+        GameObject pieceA = GameObject.Instantiate(pieceAList[fruitType]);
+        GameObject pieceB = GameObject.Instantiate(pieceBList[fruitType]);
 
+        int spawnIndex = Random.Range(0, leftSpawnGroup.Count);
+
+        pieceA.transform.position = leftSpawnGroup[spawnIndex].transform.position;
+        SpawnLocation leftSpawn = leftSpawnGroup[spawnIndex].GetComponent<SpawnLocation>();
+        pieceA.GetComponent<SimpleGravity>().velocity =
+            generateRandomVector2(leftSpawn.degreeMin, leftSpawn.degreeMax) * leftSpawn.launchSpeed;
         ActiveFruitList.Add(pieceA);
+
+        pieceB.transform.position = rightSpawnGroup[spawnIndex].transform.position;
+        SpawnLocation rightSpawn = rightSpawnGroup[spawnIndex].GetComponent<SpawnLocation>();
+        pieceB.GetComponent<SimpleGravity>().velocity =
+            generateRandomVector2(rightSpawn.degreeMin, rightSpawn.degreeMax) * rightSpawn.launchSpeed;
         ActiveFruitList.Add(pieceB);
+    }
+
+    // Generate a random vector between two angles. Normalized. 
+    Vector2 generateRandomVector2(int minDegree, int maxDegree)
+    {
+        int randomDegree = Random.Range(minDegree, maxDegree);
+        float radius = Mathf.PI * (float)randomDegree / 180.0f;
+        return new Vector2(Mathf.Cos(radius), Mathf.Sin(radius));
     }
 }
