@@ -75,7 +75,7 @@ public class DistanceFusionChecker : MonoBehaviour
                 if ((judge.CanRepairFruit(p1.gameObject, p2.gameObject)))
                 {
                     float dist = Dist(p1, p2);
-                    if (closest == -1 || dist < minDist)
+                    if (dist < minDist)
                     {
                         closest = j;
                         minDist = dist;
@@ -89,7 +89,7 @@ public class DistanceFusionChecker : MonoBehaviour
                 judge.RepairFruit(grabbedPieceList[i].gameObject, grabbedPieceList[closest].gameObject);
             }
         }
-        for (int i = fused.Length - 1; i >= 0; i++)
+        for (int i = fused.Length - 1; i >= 0; i--)
         {
             grabbedPieceList.RemoveAt(i);
         }
