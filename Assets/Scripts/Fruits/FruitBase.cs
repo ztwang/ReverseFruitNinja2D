@@ -77,6 +77,9 @@ public class FruitBase : MonoBehaviour
         Debug.Log("Object grabbed by finger: " + fingerId);
 
         DistanceFusionCheckerAdd();
+
+        // DEBUG
+        GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     public void Release()
@@ -88,6 +91,9 @@ public class FruitBase : MonoBehaviour
         }
         isGrabbed = false;
         DistanceFusionCheckerRemove();
+
+        // DEBUG
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public bool IsGrabbedBy(int fingerId)

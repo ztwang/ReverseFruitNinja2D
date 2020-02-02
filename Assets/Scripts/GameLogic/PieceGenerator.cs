@@ -17,10 +17,13 @@ public class PieceGenerator : MonoBehaviour
 
     private float generateTimer;
 
+    private int idCounter;
+
     // Start is called before the first frame update
     void Start()
     {
         generateTimer = 0.0f;
+        idCounter = 0;
     }
 
     // Update is called once per frame
@@ -45,6 +48,7 @@ public class PieceGenerator : MonoBehaviour
         pieceA.GetComponent<SimpleGravity>().velocity =
             generateRandomVector2(leftSpawn.degreeMin, leftSpawn.degreeMax) * leftSpawn.launchSpeed;
         ActiveFruitList.Add(pieceA);
+        SetId(pieceA);
 
         GameObject pieceB = GameObject.Instantiate(pieceBList[fruitIndex]);
         pieceB.transform.position = rightSpawnGroup[spawnIndex].transform.position;
@@ -52,6 +56,7 @@ public class PieceGenerator : MonoBehaviour
         pieceB.GetComponent<SimpleGravity>().velocity =
             generateRandomVector2(rightSpawn.degreeMin, rightSpawn.degreeMax) * rightSpawn.launchSpeed;
         ActiveFruitList.Add(pieceB);
+        SetId(pieceB);
     }
 
     // Generate a random vector between two angles. Normalized. 
@@ -60,5 +65,11 @@ public class PieceGenerator : MonoBehaviour
         int randomDegree = Random.Range(minDegree, maxDegree);
         float radius = Mathf.PI * (float)randomDegree / 180.0f;
         return new Vector2(Mathf.Cos(radius), Mathf.Sin(radius));
+    }
+
+    void SetId(GameObject obj)
+    {
+        obj.name += "[" + idCounter.ToString() + "]";
+        idCounter++;
     }
 }
