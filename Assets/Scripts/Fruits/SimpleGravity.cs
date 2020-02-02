@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SimpleGravity : MonoBehaviour
 {
-    private float gravity = 9.8f;
+    public static float GRAVITY = 9.8f;
+    public float gravity = GRAVITY;
 
     public Vector3 velocity = Vector3.zero;
     // Start is called before the first frame update

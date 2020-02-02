@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 4582042427291866605}
   - component: {fileID: 5757045854030421364}
   - component: {fileID: 1080252456597645381}
-  - component: {fileID: -6427237176681958905}
-  - component: {fileID: -5892539767555045606}
+  - component: {fileID: -271636519317713214}
+  - component: {fileID: -7926934956670875078}
   m_Layer: 0
-  m_Name: apple_A
+  m_Name: orange_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2b31bfd654cec48c0bb567ce131b816c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d09cfc2e082d546f88a1ca3493ff7269, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa52c806cf245364ba162c4ae9f777b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitType: 0
+  fruitType: 1
   fruitPiece: 2
   id: 0
 --- !u!50 &1080252456597645381
@@ -178,7 +178,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-6427237176681958905
+--- !u!114 &-271636519317713214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcd45e3f879f433bb854388a7e77aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5892539767555045606
+--- !u!114 &-7926934956670875078
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
