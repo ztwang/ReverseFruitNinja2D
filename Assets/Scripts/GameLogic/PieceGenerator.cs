@@ -70,6 +70,7 @@ public class PieceGenerator : MonoBehaviour
     void SetId(GameObject obj)
     {
         obj.name += "[" + idCounter.ToString() + "]";
+        obj.GetComponent<FruitBase>().id = idCounter;
         idCounter++;
     }
 }

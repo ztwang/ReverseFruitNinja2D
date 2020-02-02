@@ -29,11 +29,14 @@ public class FruitDebug : MonoBehaviour
 
     void SetPosition()
     {
-        Vector2 viewportPosition = Camera.main.WorldToViewportPoint(gameObject.transform.position);
-        Vector2 screenPosition = new Vector2(
-        ((viewportPosition.x * debugCanvas.GetComponent<RectTransform>().sizeDelta.x) - (debugCanvas.GetComponent<RectTransform>().sizeDelta.x * 0.5f)),
-        ((viewportPosition.y * debugCanvas.GetComponent<RectTransform>().sizeDelta.y) - (debugCanvas.GetComponent<RectTransform>().sizeDelta.y * 0.5f)));
-        debugText.GetComponent<RectTransform>().anchoredPosition = screenPosition;
+        if (debugText)
+        {
+            Vector2 viewportPosition = Camera.main.WorldToViewportPoint(gameObject.transform.position);
+            Vector2 screenPosition = new Vector2(
+            ((viewportPosition.x * debugCanvas.GetComponent<RectTransform>().sizeDelta.x) - (debugCanvas.GetComponent<RectTransform>().sizeDelta.x * 0.5f)),
+            ((viewportPosition.y * debugCanvas.GetComponent<RectTransform>().sizeDelta.y) - (debugCanvas.GetComponent<RectTransform>().sizeDelta.y * 0.5f)));
+            debugText.GetComponent<RectTransform>().anchoredPosition = screenPosition;
+        }
     }
 
     private void OnDestroy()

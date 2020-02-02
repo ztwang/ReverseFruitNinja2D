@@ -95,12 +95,21 @@ public class DistanceFusionChecker : MonoBehaviour
         }
         for (int i = fused.Length - 1; i >= 0; i--)
         {
-            grabbedPieceList.RemoveAt(i);
+            if (fused[i])
+            {
+                grabbedPieceList.RemoveAt(i);
+            }
         }
     }
     void Debugging()
     {
-        string text = "CanRepair:";
+        string text = "grabbed:";
+        text += grabbedPieceList.Count.ToString() + "\n";
+        foreach (var p in grabbedPieceList)
+        {
+            text += p.id + " ";
+        }
+        text += "\ncan repair:";
         for (int i = 0; i < grabbedPieceList.Count; i++)
         {
             for (int j = 0; j < grabbedPieceList.Count; j++)
