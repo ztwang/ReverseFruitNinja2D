@@ -171,6 +171,12 @@ public class Judge : MonoBehaviour
 
         gameObject.GetComponent<AudioSource>().PlayOneShot(fruitSoundEffect, 1.0f);
 
+        ComboManager comboManager = GetComponent<ComboManager>();
+        if (comboManager)
+        {
+            comboManager.Increment();
+        }
+
         score += 5;
         scoreLabel.text = "Score: " + score;
         return true;
