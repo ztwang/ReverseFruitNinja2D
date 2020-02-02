@@ -204,4 +204,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugLabelPrefab: {fileID: 2840551900065985175, guid: 55a18ce99db674084a98aed00c9d9650,
     type: 3}
-  debugText: {fileID: 0}

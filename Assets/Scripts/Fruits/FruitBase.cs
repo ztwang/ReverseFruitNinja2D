@@ -8,9 +8,9 @@ public class FruitBase : MonoBehaviour
     {
         Apple = 0,
         Orange = 1,
-        Watermelon = 2,
-        Banana = 3,
-        Strawberry = 4,
+        Banana = 2,
+        Strawberry = 3,
+        Watermelon = 4,
     }
 
     public enum FruitPiece
