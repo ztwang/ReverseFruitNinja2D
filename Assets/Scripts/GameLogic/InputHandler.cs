@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour
 {
-    // TODO: use base fruit class instead
-    public List<GameObject> ActiveFruitList;
+    private GameObject godObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        godObject = GameObject.Find("GOD");
+        if (godObject == null)
+        {
+            Debug.LogError("Can't find game object: GOD");
+        }
     }
 
     // Update is called once per frame
@@ -25,7 +28,7 @@ public class InputHandler : MonoBehaviour
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        foreach (GameObject fruitPiece in godObject.GetComponent<PieceGenerator>().ActiveFruitList)
                         {
                             if (fruitPiece.GetComponent<BoxCollider2D>().OverlapPoint(touchPosition))
                             {
@@ -38,7 +41,7 @@ public class InputHandler : MonoBehaviour
                         break;
 
                     case TouchPhase.Moved:
-                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        foreach (GameObject fruitPiece in godObject.GetComponent<PieceGenerator>().ActiveFruitList)
                         {
                             if (fruitPiece.GetComponent<FruitBase>().IsGrabbedBy(touch.fingerId))
                             {
@@ -49,7 +52,7 @@ public class InputHandler : MonoBehaviour
                         break;
 
                     case TouchPhase.Ended:
-                        foreach (GameObject fruitPiece in ActiveFruitList)
+                        foreach (GameObject fruitPiece in godObject.GetComponent<PieceGenerator>().ActiveFruitList)
                         {
                             if (fruitPiece.GetComponent<FruitBase>().IsGrabbedBy(touch.fingerId))
                             {

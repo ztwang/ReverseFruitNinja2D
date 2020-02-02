@@ -6,12 +6,16 @@ public class SelfDestroy : MonoBehaviour
 {
     public float yThreshold = -8f;
     
-    private InputHandler mainInputHandler;
+    private GameObject godObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        mainInputHandler = GameObject.FindGameObjectsWithTag("Main")[0].GetComponent<InputHandler>();
+        godObject = GameObject.Find("GOD");
+        if (godObject == null)
+        {
+            Debug.LogError("Can't find game object: GOD");
+        }
     }
 
     // Update is called once per frame
@@ -20,10 +24,10 @@ public class SelfDestroy : MonoBehaviour
         if (transform.position.y <= yThreshold)
         {
             Destroy(gameObject);
-            if (mainInputHandler.ActiveFruitList.Contains(gameObject))
+            List<GameObject> fruitList = godObject.GetComponent<PieceGenerator>().ActiveFruitList;
+            if (fruitList.Contains(gameObject))
             {
-                mainInputHandler.ActiveFruitList.Remove(gameObject);
-                Debug.Log("Fruit object destroyed and removed.");
+                fruitList.Remove(gameObject);
             }
         }
     }

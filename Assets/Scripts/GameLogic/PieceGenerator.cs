@@ -4,31 +4,27 @@ using UnityEngine;
 
 public class PieceGenerator : MonoBehaviour
 {
+    public List<GameObject> ActiveFruitList;
+    
     public List<Transform> leftGroup;
     public List<Transform> rightGroup;
     // TODO: create base fruit class
     public List<GameObject> pieceAList;
     public List<GameObject> pieceBList;
+    public List<GameObject> fullFruitList;
 
     public Vector3 leftInjectDirection;
     public Vector3 rightInjectDirection;
-
     public float injectSpeed = 1.0f;
 
     public float generateInterval = 2.0f;
 
-
     private float generateTimer;
-    private InputHandler mainInputHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         generateTimer = 0.0f;
-        GameObject[] tempList = GameObject.FindGameObjectsWithTag("Main");
-        Debug.Log("main object found: ");
-        Debug.Log(tempList.Length);
-        mainInputHandler = tempList[0].GetComponent<InputHandler>();
     }
 
     // Update is called once per frame
@@ -55,7 +51,7 @@ public class PieceGenerator : MonoBehaviour
         pieceA.GetComponent<SimpleGravity>().velocity = leftInjectDirection * injectSpeed;
         pieceB.GetComponent<SimpleGravity>().velocity = rightInjectDirection * injectSpeed;
 
-        mainInputHandler.ActiveFruitList.Add(pieceA);
-        mainInputHandler.ActiveFruitList.Add(pieceB);
+        ActiveFruitList.Add(pieceA);
+        ActiveFruitList.Add(pieceB);
     }
 }

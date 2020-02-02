@@ -363,9 +363,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1655542820}
-  - component: {fileID: 1655542821}
   m_Layer: 0
-  m_Name: MainLeyer
+  m_Name: MainLayer
   m_TagString: Main
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,19 +385,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1655542821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655542819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9becf4a5b5c660642bf7dc5ab5b40166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ActiveFruitList: []
 --- !u!1 &1666587070
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +414,79 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1676928144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1676928147}
+  - component: {fileID: 1676928146}
+  - component: {fileID: 1676928145}
+  m_Layer: 0
+  m_Name: GOD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1676928145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676928144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9becf4a5b5c660642bf7dc5ab5b40166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1676928146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676928144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd09b2a60b704495faf61ec7fc3e798e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActiveFruitList: []
+  leftGroup:
+  - {fileID: 263941859}
+  - {fileID: 2015996799}
+  - {fileID: 1421910003}
+  rightGroup:
+  - {fileID: 1309537485}
+  - {fileID: 1582708569}
+  - {fileID: 1116388179}
+  pieceAList:
+  - {fileID: 6955726966374967231, guid: f4ccec6cc21e8400590cab8cb2899e02, type: 3}
+  pieceBList:
+  - {fileID: 6270195381605146568, guid: b4201392c5491449f88b10212ae0c5b1, type: 3}
+  leftInjectDirection: {x: 1, y: 1, z: 0}
+  rightInjectDirection: {x: -1, y: 1, z: 0}
+  injectSpeed: 10
+  generateInterval: 2
+--- !u!4 &1676928147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676928144}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1942569092
 GameObject:
@@ -498,7 +557,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2145524730}
-  - component: {fileID: 2145524731}
   m_Layer: 0
   m_Name: SpawnGroup
   m_TagString: Untagged
@@ -526,31 +584,3 @@ Transform:
   m_Father: {fileID: 1655542820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2145524731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145524729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd09b2a60b704495faf61ec7fc3e798e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftGroup:
-  - {fileID: 263941859}
-  - {fileID: 2015996799}
-  - {fileID: 1421910003}
-  rightGroup:
-  - {fileID: 1309537485}
-  - {fileID: 1582708569}
-  - {fileID: 1116388179}
-  pieceAList:
-  - {fileID: 6955726966374967231, guid: f4ccec6cc21e8400590cab8cb2899e02, type: 3}
-  pieceBList:
-  - {fileID: 6270195381605146568, guid: b4201392c5491449f88b10212ae0c5b1, type: 3}
-  leftInjectDirection: {x: 1, y: 1, z: 0}
-  rightInjectDirection: {x: -1, y: 1, z: 0}
-  injectSpeed: 10
-  generateInterval: 2

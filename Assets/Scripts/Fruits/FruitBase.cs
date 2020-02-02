@@ -17,16 +17,46 @@ public class FruitBase : MonoBehaviour
     bool isGrabbed;
     int grabbedFingerId = -1;
 
+    PieceGenerator pieceGenerator;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        pieceGenerator = GameObject.Find("GOD").GetComponent<PieceGenerator>();
+        if (pieceGenerator == null)
+        {
+            Debug.LogError("Can't find game object: GOD pieceGenerator");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isGrabbed)
+        {
+            List<GameObject> fruitList = pieceGenerator.ActiveFruitList;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<FruitBase>() != null)
+        {
+            //Debug.Log("Colliding with another fruit:" + collision.gameObject.name);
+            if (isGrabbed && type == collision.gameObject.GetComponent<FruitBase>().type)
+            {
+                Debug.Log("Repair fruit!");
+                GameObject apple = GameObject.Instantiate(pieceGenerator.fullFruitList[0]);
+                apple.transform.position =
+                        (gameObject.transform.position + collision.gameObject.transform.position) / 2;
+                Release();
+
+                pieceGenerator.ActiveFruitList.Remove(gameObject);
+                pieceGenerator.ActiveFruitList.Remove(collision.gameObject);
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     public void GrabBy(int fingerId)
