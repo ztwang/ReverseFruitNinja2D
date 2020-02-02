@@ -1,9 +1,0 @@
-{
-  "rules": {
-    "$scorePath": {
-      ".indexOn": ["score", "user_id"],
-      ".read": "true",
-      ".write": "true"
-    }
-  }
-}
