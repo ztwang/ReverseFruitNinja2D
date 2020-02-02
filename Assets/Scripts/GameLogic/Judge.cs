@@ -132,10 +132,11 @@ public class Judge : MonoBehaviour
             Debug.LogError("PieceGenerator should be under the same object as judge!");
             return false;
         }
-        GameObject apple = GameObject.Instantiate(pieceGenerator.fullFruitList[0]);
-        apple.transform.position =
+        FruitBase.FruitType fruitType = FruitPiece1.GetComponent<FruitBase>().fruitType;
+        GameObject fullFruit = GameObject.Instantiate(pieceGenerator.fullFruitList[(int) fruitType]);
+        fullFruit.transform.position =
             (FruitPiece1.transform.position + FruitPiece2.transform.position) / 2;
-        apple.GetComponent<SimpleGravity>().velocity =
+        fullFruit.GetComponent<SimpleGravity>().velocity =
             (FruitPiece1.GetComponent<SimpleGravity>().velocity + FruitPiece2.GetComponent<SimpleGravity>().velocity) / 2;
 
         // Destroy fruit pieces

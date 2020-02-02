@@ -125,7 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98c15c40a316424e8cb28b52009648d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yThreshold: -8
+  yThreshold: 8
+  xThreshold: 16
 --- !u!114 &-5537236330125209270
 MonoBehaviour:
   m_ObjectHideFlags: 0

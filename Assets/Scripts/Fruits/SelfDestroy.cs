@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SelfDestroy : MonoBehaviour
 {
-    public float yThreshold = -8f;
+    public float yThreshold = 8f;
+    public float xThreshold = 16f;
     
     private GameObject godObject;
 
@@ -21,7 +22,8 @@ public class SelfDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y <= yThreshold)
+        if (transform.position.y < -yThreshold || transform.position.y > yThreshold
+            || transform.position.x < -xThreshold || transform.position.x > xThreshold)
         {
             List<GameObject> fruitList = godObject.GetComponent<PieceGenerator>().ActiveFruitList;
             if (fruitList.Contains(gameObject))
