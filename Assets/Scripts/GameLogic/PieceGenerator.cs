@@ -36,18 +36,17 @@ public class PieceGenerator : MonoBehaviour
 
     void generateAndLaunch()
     {
-        int fruitType = Random.Range(0, pieceAList.Count);
-        GameObject pieceA = GameObject.Instantiate(pieceAList[fruitType]);
-        GameObject pieceB = GameObject.Instantiate(pieceBList[fruitType]);
-
+        int fruitIndex = Random.Range(0, fullFruitList.Count);
         int spawnIndex = Random.Range(0, leftSpawnGroup.Count);
 
+        GameObject pieceA = GameObject.Instantiate(pieceAList[fruitIndex]);
         pieceA.transform.position = leftSpawnGroup[spawnIndex].transform.position;
         SpawnLocation leftSpawn = leftSpawnGroup[spawnIndex].GetComponent<SpawnLocation>();
         pieceA.GetComponent<SimpleGravity>().velocity =
             generateRandomVector2(leftSpawn.degreeMin, leftSpawn.degreeMax) * leftSpawn.launchSpeed;
         ActiveFruitList.Add(pieceA);
 
+        GameObject pieceB = GameObject.Instantiate(pieceBList[fruitIndex]);
         pieceB.transform.position = rightSpawnGroup[spawnIndex].transform.position;
         SpawnLocation rightSpawn = rightSpawnGroup[spawnIndex].GetComponent<SpawnLocation>();
         pieceB.GetComponent<SimpleGravity>().velocity =
