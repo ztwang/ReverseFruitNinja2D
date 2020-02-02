@@ -51,7 +51,7 @@ public class FruitBase : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<FruitBase>() != null)
+        /*if (collision.gameObject.GetComponent<FruitBase>() != null)
         {
             //Debug.Log("Colliding with another fruit:" + collision.gameObject.name);
             Judge judge = godObject.GetComponent<Judge>();
@@ -61,7 +61,7 @@ public class FruitBase : MonoBehaviour
                 Release();
                 judge.RepairFruit(gameObject, collision.gameObject);
             }
-        }
+        }*/
     }
 
     public void GrabBy(int fingerId)
@@ -75,6 +75,8 @@ public class FruitBase : MonoBehaviour
         isGrabbed = true;
         grabbedFingerId = fingerId;
         Debug.Log("Object grabbed by finger: " + fingerId);
+
+        DistanceFusionCheckerAdd();
     }
 
     public void Release()
@@ -85,6 +87,7 @@ public class FruitBase : MonoBehaviour
             return;
         }
         isGrabbed = false;
+        DistanceFusionCheckerRemove();
     }
 
     public bool IsGrabbedBy(int fingerId)
@@ -94,5 +97,23 @@ public class FruitBase : MonoBehaviour
     public bool IsGrabbed()
     {
         return isGrabbed;
+    }
+
+    private void DistanceFusionCheckerAdd()
+    {
+        DistanceFusionChecker checker = godObject.GetComponent<DistanceFusionChecker>();
+        if (checker)
+        {
+            checker.AddGrabbedPiece(this);
+        }
+    }
+
+    private void DistanceFusionCheckerRemove()
+    {
+        DistanceFusionChecker checker = godObject.GetComponent<DistanceFusionChecker>();
+        if (checker)
+        {
+            checker.RemoveGrabbedPiece(this);
+        }
     }
 }
