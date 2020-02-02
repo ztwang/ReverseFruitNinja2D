@@ -27,6 +27,8 @@ public class FruitBase : MonoBehaviour
     bool isGrabbed;
     int grabbedFingerId = -1;
 
+    public Vector3 grabbedPosOffset;
+
     GameObject godObject;
 
     // Start is called before the first frame update
@@ -64,7 +66,7 @@ public class FruitBase : MonoBehaviour
         }*/
     }
 
-    public void GrabBy(int fingerId)
+    public void GrabBy(int fingerId, Vector2 touchPosition)
     {
         if (isGrabbed)
         {
@@ -77,6 +79,8 @@ public class FruitBase : MonoBehaviour
         Debug.Log("Object grabbed by finger: " + fingerId);
 
         DistanceFusionCheckerAdd();
+        grabbedPosOffset = transform.position - new Vector3(touchPosition.x, touchPosition.y, 0f);
+        GetComponent<SimpleRotate>().enabled = false;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.green;
@@ -91,6 +95,7 @@ public class FruitBase : MonoBehaviour
         }
         isGrabbed = false;
         DistanceFusionCheckerRemove();
+        GetComponent<SimpleRotate>().enabled = true;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.white;
