@@ -8,24 +8,34 @@ public class FruitBase : MonoBehaviour
     {
         Apple = 0,
         Orange = 1,
-        Watermelon =2,
+        Watermelon = 2,
+        Banana = 3,
+        Strawberry = 4,
     }
 
-    public FruitType type;
+    public enum FruitPiece
+    {
+        Whole = 0,
+        Left = 1,
+        Right = 2,
+    }
+
+    public FruitType fruitType;
+    public FruitPiece fruitPiece;
     public int id;
 
     bool isGrabbed;
     int grabbedFingerId = -1;
 
-    PieceGenerator pieceGenerator;
+    GameObject godObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        pieceGenerator = GameObject.Find("GOD").GetComponent<PieceGenerator>();
-        if (pieceGenerator == null)
+        godObject = GameObject.Find("GOD");
+        if (godObject == null)
         {
-            Debug.LogError("Can't find game object: GOD pieceGenerator");
+            Debug.LogError("Can't find game object: GOD");
         }
     }
 
@@ -34,7 +44,8 @@ public class FruitBase : MonoBehaviour
     {
         if (isGrabbed)
         {
-            List<GameObject> fruitList = pieceGenerator.ActiveFruitList;
+            // TODO: don't use collision, check distance directly?
+            //List<GameObject> fruitList = pieceGenerator.ActiveFruitList;
         }
     }
 
@@ -43,18 +54,12 @@ public class FruitBase : MonoBehaviour
         if (collision.gameObject.GetComponent<FruitBase>() != null)
         {
             //Debug.Log("Colliding with another fruit:" + collision.gameObject.name);
-            if (isGrabbed && type == collision.gameObject.GetComponent<FruitBase>().type)
+            Judge judge = godObject.GetComponent<Judge>();
+            if (judge.CanRepairFruit(gameObject, collision.gameObject))
             {
-                Debug.Log("Repair fruit!");
-                GameObject apple = GameObject.Instantiate(pieceGenerator.fullFruitList[0]);
-                apple.transform.position =
-                        (gameObject.transform.position + collision.gameObject.transform.position) / 2;
+                Debug.Log("Repairing fruit!");
                 Release();
-
-                pieceGenerator.ActiveFruitList.Remove(gameObject);
-                pieceGenerator.ActiveFruitList.Remove(collision.gameObject);
-                Destroy(gameObject);
-                Destroy(collision.gameObject);
+                judge.RepairFruit(gameObject, collision.gameObject);
             }
         }
     }
@@ -85,5 +90,9 @@ public class FruitBase : MonoBehaviour
     public bool IsGrabbedBy(int fingerId)
     {
         return isGrabbed && grabbedFingerId == fingerId;
+    }
+    public bool IsGrabbed()
+    {
+        return isGrabbed;
     }
 }

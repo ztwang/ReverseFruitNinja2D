@@ -16,6 +16,8 @@ public class Judge : MonoBehaviour
     private bool started;
     private bool finished;
 
+    private int score;
+
     private GameFlowController gameFlowController;
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,8 @@ public class Judge : MonoBehaviour
             Debug.LogError("No UI timer label!");
         }
         gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
+
+        score = 0;
     }
 
     // Update is called once per frame
@@ -78,5 +82,64 @@ public class Judge : MonoBehaviour
         {
             timerLabel.text = Mathf.CeilToInt(timer).ToString();
         }
+    }
+
+    public bool CanRepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
+    {
+        // Disabling this rule for now
+        //if (!FruitPiece1.GetComponent<FruitBase>().IsGrabbed()
+        //    && !FruitPiece2.GetComponent<FruitBase>().IsGrabbed())
+        //{
+        //    Debug.Log("At least one of the piece must be grabbed!");
+        //    return false;
+        //}
+
+        if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType)
+        {
+            Debug.Log("You can't combine two different fruit pieces!");
+            return false;
+        }
+
+        if (FruitPiece1.GetComponent<FruitBase>().fruitPiece == 0
+            || FruitPiece2.GetComponent<FruitBase>().fruitPiece == 0)
+        {
+            Debug.Log("Fruit is already in one piece!");
+            return false;
+        }
+
+        if (FruitPiece1.GetComponent<FruitBase>().fruitPiece
+            == FruitPiece2.GetComponent<FruitBase>().fruitPiece)
+        {
+            Debug.Log("You can't comebine same side!");
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool RepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
+    {        
+        // Get fruit type and generate corresponding type
+        PieceGenerator pieceGenerator = gameObject.GetComponent<PieceGenerator>();
+        if (pieceGenerator == null)
+        {
+            Debug.LogError("PieceGenerator should be under the same object as judge!");
+            return false;
+        }
+        GameObject apple = GameObject.Instantiate(pieceGenerator.fullFruitList[0]);
+        apple.transform.position =
+            (FruitPiece1.transform.position + FruitPiece2.transform.position) / 2;
+        apple.GetComponent<SimpleGravity>().velocity =
+            (FruitPiece1.GetComponent<SimpleGravity>().velocity + FruitPiece2.GetComponent<SimpleGravity>().velocity) / 2;
+
+        // Destroy fruit pieces
+        pieceGenerator.ActiveFruitList.Remove(FruitPiece1);
+        pieceGenerator.ActiveFruitList.Remove(FruitPiece2);
+        Destroy(FruitPiece1);
+        Destroy(FruitPiece2);
+
+        score += 5;
+        Debug.Log("Scored! Current score: " + score);
+        return true;
     }
 }

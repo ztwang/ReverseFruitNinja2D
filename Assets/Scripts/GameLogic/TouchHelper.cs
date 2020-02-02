@@ -53,6 +53,7 @@ public class TouchHelper : MonoBehaviour
         {
             lastFakeTouch.phase = TouchPhase.Began;
             lastFakeTouch.deltaPosition = new Vector2(0, 0);
+            lastFakeTouch.deltaTime = Time.deltaTime;
             lastFakeTouch.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             lastFakeTouch.fingerId = -123;
         }
@@ -61,6 +62,7 @@ public class TouchHelper : MonoBehaviour
             lastFakeTouch.phase = TouchPhase.Ended;
             Vector2 newPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             lastFakeTouch.deltaPosition = newPosition - lastFakeTouch.position;
+            lastFakeTouch.deltaTime = Time.deltaTime;
             lastFakeTouch.position = newPosition;
             lastFakeTouch.fingerId = -123;
         }
@@ -69,6 +71,7 @@ public class TouchHelper : MonoBehaviour
             lastFakeTouch.phase = TouchPhase.Moved;
             Vector2 newPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             lastFakeTouch.deltaPosition = newPosition - lastFakeTouch.position;
+            lastFakeTouch.deltaTime = Time.deltaTime;
             lastFakeTouch.position = newPosition;
             lastFakeTouch.fingerId = -123;
         }
