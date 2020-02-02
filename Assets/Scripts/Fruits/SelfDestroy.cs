@@ -23,12 +23,12 @@ public class SelfDestroy : MonoBehaviour
     {
         if (transform.position.y <= yThreshold)
         {
-            Destroy(gameObject);
             List<GameObject> fruitList = godObject.GetComponent<PieceGenerator>().ActiveFruitList;
             if (fruitList.Contains(gameObject))
             {
                 fruitList.Remove(gameObject);
             }
+            Destroy(gameObject);
         }
     }
 }

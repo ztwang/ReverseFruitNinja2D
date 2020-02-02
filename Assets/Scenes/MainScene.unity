@@ -470,6 +470,8 @@ MonoBehaviour:
   - {fileID: 6955726966374967231, guid: f4ccec6cc21e8400590cab8cb2899e02, type: 3}
   pieceBList:
   - {fileID: 6270195381605146568, guid: b4201392c5491449f88b10212ae0c5b1, type: 3}
+  fullFruitList:
+  - {fileID: 1026737781939387526, guid: 9d1b57e907cb346ff8a688c9a16d043c, type: 3}
   leftInjectDirection: {x: 1, y: 1, z: 0}
   rightInjectDirection: {x: -1, y: 1, z: 0}
   injectSpeed: 10
