@@ -6,6 +6,8 @@ public class DistanceFusionChecker : MonoBehaviour
 {
     public List<FruitBase> grabbedPieceList;
 
+    public float fusionDistance = 2f;
+
     private Judge judge;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,7 @@ public class DistanceFusionChecker : MonoBehaviour
                 {
                     var p1 = grabbedPieceList[i];
                     var p2 = grabbedPieceList[j];
-                    if (judge.CanRepairFruit(p1.gameObject, p2.gameObject))
+                    if (WithinDistance(p1, p2) && (judge.CanRepairFruit(p1.gameObject, p2.gameObject)))
                     {
                         grabbedPieceList.Remove(p1);
                         grabbedPieceList.Remove(p2);
@@ -53,5 +55,10 @@ public class DistanceFusionChecker : MonoBehaviour
         {
             grabbedPieceList.Remove(piece);
         }
+    }
+
+    bool WithinDistance(FruitBase p1, FruitBase p2)
+    {
+        return Vector2.Distance(p1.transform.position, p2.transform.position) <= fusionDistance ;
     }
 }
