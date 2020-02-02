@@ -15,8 +15,8 @@ public class PieceGenerator : MonoBehaviour
 
     public float generateInterval = 2.0f;
 
+    private bool isStarted;
     private float generateTimer;
-
     private int idCounter;
 
     // Start is called before the first frame update
@@ -29,12 +29,20 @@ public class PieceGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isStarted) return;
+
         generateTimer += Time.deltaTime;
         while (generateTimer >= generateInterval)
         {
             generateTimer -= generateInterval;
             generateAndLaunch();
         }
+    }
+
+    public void StartGenerate()
+    {
+        isStarted = true;
+        generateAndLaunch();
     }
 
     void generateAndLaunch()

@@ -25,6 +25,8 @@ public class Judge : MonoBehaviour
     private static int score;
 
     private GameFlowController gameFlowController;
+    private PieceGenerator pieceGenerator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,11 @@ public class Judge : MonoBehaviour
         }
         
         gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
+        pieceGenerator = gameObject.GetComponent<PieceGenerator>();
+        if (pieceGenerator == null)
+        {
+            Debug.LogError("PieceGenerator is missing in judge!");
+        }
     }
 
     // Update is called once per frame
@@ -70,10 +77,9 @@ public class Judge : MonoBehaviour
             else if (started && !isHalfway && timer <= (countDown / 2.0f))
             {
                 // Only do once
-                // Increase the spawn frequency half way of the game.
+                // Speed up half way of the game.
                 isHalfway = true;
-                gameObject.GetComponent<PieceGenerator>().generateInterval =
-                    gameObject.GetComponent<PieceGenerator>().generateInterval/ 2.0f;
+                pieceGenerator.generateInterval = pieceGenerator.generateInterval/ 2.0f;
                 gameObject.GetComponent<AudioSource>().pitch += 0.3f;
             }
         }
@@ -87,6 +93,7 @@ public class Judge : MonoBehaviour
         timer = countDown;
         started = true;
         timerLabel.color = Color.green;
+        pieceGenerator.StartGenerate();
     }
 
     void FinishRound()
@@ -149,12 +156,6 @@ public class Judge : MonoBehaviour
     public bool RepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
     {        
         // Get fruit type and generate corresponding type
-        PieceGenerator pieceGenerator = gameObject.GetComponent<PieceGenerator>();
-        if (pieceGenerator == null)
-        {
-            Debug.LogError("PieceGenerator should be under the same object as judge!");
-            return false;
-        }
         FruitBase.FruitType fruitType = FruitPiece1.GetComponent<FruitBase>().fruitType;
         GameObject fullFruit = GameObject.Instantiate(pieceGenerator.fullFruitList[(int) fruitType]);
         fullFruit.transform.position =
