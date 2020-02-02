@@ -9,6 +9,7 @@ public class DistanceFusionChecker : MonoBehaviour
     public float fusionDistance = 2f;
 
     private Judge judge;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,23 +20,7 @@ public class DistanceFusionChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < grabbedPieceList.Count; i++)
-        {
-            for (int j = i+1; j < grabbedPieceList.Count; j++)
-            {
-                if (judge)
-                {
-                    var p1 = grabbedPieceList[i];
-                    var p2 = grabbedPieceList[j];
-                    if (WithinDistance(p1, p2) && (judge.CanRepairFruit(p1.gameObject, p2.gameObject)))
-                    {
-                        grabbedPieceList.Remove(p1);
-                        grabbedPieceList.Remove(p2);
-                        judge.RepairFruit(p1.gameObject, p2.gameObject);
-                    }
-                }
-            }
-        }
+        CheckFusion();
     }
 
     public void AddGrabbedPiece(FruitBase piece)
@@ -57,8 +42,56 @@ public class DistanceFusionChecker : MonoBehaviour
         }
     }
 
-    bool WithinDistance(FruitBase p1, FruitBase p2)
+    float Dist(FruitBase p1, FruitBase p2)
     {
-        return Vector2.Distance(p1.transform.position, p2.transform.position) <= fusionDistance ;
+        return Vector2.Distance(p1.transform.position, p2.transform.position);
+    }
+
+    void CheckFusion()
+    {
+        if (!judge)
+        {
+            return;
+        }
+        bool[] fused = new bool[grabbedPieceList.Count];
+        for (int i = 0; i < grabbedPieceList.Count; i++)
+        {
+            if (fused[i])
+            {
+                continue;
+            }
+
+            var p1 = grabbedPieceList[i];
+            int closest = -1;
+            float minDist = fusionDistance;
+            // find closest fusable piece
+            for (int j = i + 1; j < grabbedPieceList.Count; j++)
+            {
+                if (fused[j])
+                {
+                    continue;
+                }
+                var p2 = grabbedPieceList[j];
+                if ((judge.CanRepairFruit(p1.gameObject, p2.gameObject)))
+                {
+                    float dist = Dist(p1, p2);
+                    if (closest == -1 || dist < minDist)
+                    {
+                        closest = j;
+                        minDist = dist;
+                    }
+                }
+            }
+            if (closest != -1)
+            {
+                fused[i] = true;
+                fused[closest] = true;
+                judge.RepairFruit(grabbedPieceList[i].gameObject, grabbedPieceList[closest].gameObject);
+            }
+        }
+        for (int i = fused.Length - 1; i >= 0; i++)
+        {
+            grabbedPieceList.RemoveAt(i);
+        }
     }
 }
