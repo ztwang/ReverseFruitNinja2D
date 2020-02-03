@@ -111,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 4}
+  m_Size: {x: 3.5, y: 4.5}
   m_EdgeRadius: 0
 --- !u!114 &-3124179628589293543
 MonoBehaviour:
@@ -156,6 +156,7 @@ MonoBehaviour:
   fruitType: 2
   fruitPiece: 2
   id: 0
+  grabbedPosOffset: {x: 0, y: 0, z: 0}
 --- !u!50 &1080252456597645381
 Rigidbody2D:
   serializedVersion: 4

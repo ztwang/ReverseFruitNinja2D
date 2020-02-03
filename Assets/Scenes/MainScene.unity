@@ -552,9 +552,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   startScale: 1
-  peakScale: 1.5
+  peakScale: 1.6
   endScale: 1
-  growSpeed: 6
+  growSpeed: 5
   fadeLerp: 0.1
 --- !u!1 &1116388178
 GameObject:
