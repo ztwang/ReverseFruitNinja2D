@@ -139,7 +139,13 @@ public class Judge : MonoBehaviour
             return false;
         }
 
-        if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType)
+        if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType &&
+            !(
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple)
+            )
         {
             Debug.Log("You can't combine two different fruit pieces!");
             return false;
@@ -166,6 +172,25 @@ public class Judge : MonoBehaviour
     {        
         // Get fruit type and generate corresponding type
         FruitBase.FruitType fruitType = FruitPiece1.GetComponent<FruitBase>().fruitType;
+
+        // Apple Pen Apple logic
+        if (FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple)
+        {
+            if (FruitPiece1.GetComponent<FruitBase>().fruitPiece == FruitBase.FruitPiece.Left &&
+                FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+                FruitPiece2.GetComponent<FruitBase>().fruitPiece == FruitBase.FruitPiece.Left &&
+                FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen)
+            {
+                fruitType = FruitBase.FruitType.PenApple;
+            } else
+            {
+                fruitType = FruitBase.FruitType.ApplePen;
+            }
+        }
+        // End
         GameObject fullFruit = GameObject.Instantiate(pieceGenerator.fullFruitList[(int) fruitType]);
         fullFruit.transform.position =
             (FruitPiece1.transform.position + FruitPiece2.transform.position) / 2;

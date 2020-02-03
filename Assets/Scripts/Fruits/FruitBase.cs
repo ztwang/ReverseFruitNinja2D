@@ -7,10 +7,13 @@ public class FruitBase : MonoBehaviour
     public enum FruitType
     {
         Apple = 0,
-        Orange = 1,
-        Banana = 2,
-        Strawberry = 3,
-        Watermelon = 4,
+        Orange,
+        Banana,
+        Strawberry,
+        Pen,
+        PenApple,
+        ApplePen,
+        Watermelon,
     }
 
     public enum FruitPiece

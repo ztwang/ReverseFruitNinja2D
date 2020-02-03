@@ -47,7 +47,7 @@ public class PieceGenerator : MonoBehaviour
 
     void generateAndLaunch()
     {
-        int fruitIndex = Random.Range(0, fullFruitList.Count);
+        int fruitIndex = Random.Range(0, pieceAList.Count);
         int spawnIndex = Random.Range(0, leftSpawnGroup.Count);
 
         GameObject pieceA = GameObject.Instantiate(pieceAList[fruitIndex]);
