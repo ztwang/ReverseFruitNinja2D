@@ -41,6 +41,9 @@ public class FruitDebug : MonoBehaviour
 
     private void OnDestroy()
     {
-        Destroy(debugText.gameObject);
+        if (debugText)
+        {
+            Destroy(debugText.gameObject);
+        }
     }
 }

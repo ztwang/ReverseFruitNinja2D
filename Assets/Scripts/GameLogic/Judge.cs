@@ -12,21 +12,28 @@ public class Judge : MonoBehaviour
     // UI elements
     public Text timerLabel;
     public Text scoreLabel;
+    private int timerNumber;
+
+    public AudioClip fruitSoundEffect;
 
     // count down timer
     private float timer;
     private bool started;
+    private bool isHalfway;
     private bool finished;
 
     private static int highScore;
     private static int score;
 
     private GameFlowController gameFlowController;
+    private PieceGenerator pieceGenerator;
+
     // Start is called before the first frame update
     void Start()
     {
         timer = preCountDown;
         started = false;
+        isHalfway = false;
         finished = false;
         score = 0;
         highScore = PlayerPrefs.GetInt("high_score");
@@ -42,6 +49,11 @@ public class Judge : MonoBehaviour
         }
         
         gameFlowController = EventSystem.current.gameObject.GetComponent<GameFlowController>();
+        pieceGenerator = gameObject.GetComponent<PieceGenerator>();
+        if (pieceGenerator == null)
+        {
+            Debug.LogError("PieceGenerator is missing in judge!");
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +75,14 @@ public class Judge : MonoBehaviour
                     StartRound();
                 }
             }
+            else if (started && !isHalfway && timer <= (countDown / 2.0f))
+            {
+                // Only do once
+                // Speed up half way of the game.
+                isHalfway = true;
+                pieceGenerator.generateInterval = pieceGenerator.generateInterval/ 2.0f;
+                gameObject.GetComponent<AudioSource>().pitch += 0.3f;
+            }
         }
 
         UpdateUI();
@@ -74,6 +94,7 @@ public class Judge : MonoBehaviour
         timer = countDown;
         started = true;
         timerLabel.color = Color.green;
+        pieceGenerator.StartGenerate();
     }
 
     void FinishRound()
@@ -97,7 +118,15 @@ public class Judge : MonoBehaviour
 
     void UpdateUI()
     {
-        timerLabel.text = Mathf.CeilToInt(timer).ToString();
+        if (timerNumber != Mathf.CeilToInt(timer))
+        {
+            timerNumber = Mathf.CeilToInt(timer);
+            timerLabel.text = timerNumber.ToString();
+            if (started && timerNumber <= 10)
+            {
+                timerLabel.GetComponent<UIHeartBeatAnimation>().Animate();
+            }
+        }
     }
 
     public bool CanRepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
@@ -110,7 +139,13 @@ public class Judge : MonoBehaviour
             return false;
         }
 
-        if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType)
+        if (FruitPiece1.GetComponent<FruitBase>().fruitType != FruitPiece2.GetComponent<FruitBase>().fruitType &&
+            !(
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple)
+            )
         {
             Debug.Log("You can't combine two different fruit pieces!");
             return false;
@@ -136,13 +171,26 @@ public class Judge : MonoBehaviour
     public bool RepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
     {        
         // Get fruit type and generate corresponding type
-        PieceGenerator pieceGenerator = gameObject.GetComponent<PieceGenerator>();
-        if (pieceGenerator == null)
-        {
-            Debug.LogError("PieceGenerator should be under the same object as judge!");
-            return false;
-        }
         FruitBase.FruitType fruitType = FruitPiece1.GetComponent<FruitBase>().fruitType;
+
+        // Apple Pen Apple logic
+        if (FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+            FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen &&
+            FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Apple)
+        {
+            if (FruitPiece1.GetComponent<FruitBase>().fruitPiece == FruitBase.FruitPiece.Left &&
+                FruitPiece1.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen ||
+                FruitPiece2.GetComponent<FruitBase>().fruitPiece == FruitBase.FruitPiece.Left &&
+                FruitPiece2.GetComponent<FruitBase>().fruitType == FruitBase.FruitType.Pen)
+            {
+                fruitType = FruitBase.FruitType.PenApple;
+            } else
+            {
+                fruitType = FruitBase.FruitType.ApplePen;
+            }
+        }
+        // End
         GameObject fullFruit = GameObject.Instantiate(pieceGenerator.fullFruitList[(int) fruitType]);
         fullFruit.transform.position =
             (FruitPiece1.transform.position + FruitPiece2.transform.position) / 2;
@@ -154,6 +202,14 @@ public class Judge : MonoBehaviour
         pieceGenerator.ActiveFruitList.Remove(FruitPiece2);
         Destroy(FruitPiece1);
         Destroy(FruitPiece2);
+
+        gameObject.GetComponent<AudioSource>().PlayOneShot(fruitSoundEffect, 1.0f);
+
+        ComboManager comboManager = GetComponent<ComboManager>();
+        if (comboManager)
+        {
+            comboManager.Increment();
+        }
 
         score += 5;
         scoreLabel.text = "Score: " + score;

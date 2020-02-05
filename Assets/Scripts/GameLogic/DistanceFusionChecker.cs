@@ -12,6 +12,7 @@ public class DistanceFusionChecker : MonoBehaviour
     private Judge judge;
 
     public Text debugLabel;
+    public bool enableDebug = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,10 @@ public class DistanceFusionChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debugging();
+        if (enableDebug)
+        {
+            UpdateDebugLabel();
+        }
         CheckFusion();
     }
 
@@ -101,7 +105,8 @@ public class DistanceFusionChecker : MonoBehaviour
             }
         }
     }
-    void Debugging()
+
+    void UpdateDebugLabel()
     {
         string text = "grabbed:";
         text += grabbedPieceList.Count.ToString() + "\n";
@@ -116,7 +121,8 @@ public class DistanceFusionChecker : MonoBehaviour
             {
                 var p1 = grabbedPieceList[i].gameObject;
                 var p2 = grabbedPieceList[j].gameObject;
-                if (judge.CanRepairFruit(p1, p2)) {
+                if (judge.CanRepairFruit(p1, p2))
+                {
                     text += "\n" + p1.GetComponent<FruitBase>().id;
                     text += ", " + p2.GetComponent<FruitBase>().id;
                 }

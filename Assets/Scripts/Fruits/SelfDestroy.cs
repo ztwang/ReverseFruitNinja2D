@@ -31,6 +31,16 @@ public class SelfDestroy : MonoBehaviour
                 fruitList.Remove(gameObject);
             }
             Destroy(gameObject);
+
+            // Reset combo
+            if (GetComponent<FruitBase>().fruitPiece != FruitBase.FruitPiece.Whole)
+            {
+                ComboManager comboManager = godObject.GetComponent<ComboManager>();
+                if (comboManager)
+                {
+                    comboManager.Reset();
+                }
+            }
         }
     }
 }

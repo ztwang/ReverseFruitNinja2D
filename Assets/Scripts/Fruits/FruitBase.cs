@@ -7,10 +7,13 @@ public class FruitBase : MonoBehaviour
     public enum FruitType
     {
         Apple = 0,
-        Orange = 1,
-        Watermelon = 2,
-        Banana = 3,
-        Strawberry = 4,
+        Orange,
+        Banana,
+        Strawberry,
+        Pen,
+        PenApple,
+        ApplePen,
+        Watermelon,
     }
 
     public enum FruitPiece
@@ -26,6 +29,8 @@ public class FruitBase : MonoBehaviour
 
     bool isGrabbed;
     int grabbedFingerId = -1;
+
+    public Vector3 grabbedPosOffset;
 
     GameObject godObject;
 
@@ -64,7 +69,7 @@ public class FruitBase : MonoBehaviour
         }*/
     }
 
-    public void GrabBy(int fingerId)
+    public void GrabBy(int fingerId, Vector2 touchPosition)
     {
         if (isGrabbed)
         {
@@ -77,6 +82,8 @@ public class FruitBase : MonoBehaviour
         Debug.Log("Object grabbed by finger: " + fingerId);
 
         DistanceFusionCheckerAdd();
+        grabbedPosOffset = transform.position - new Vector3(touchPosition.x, touchPosition.y, 0f);
+        GetComponent<SimpleRotate>().enabled = false;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.green;
@@ -91,6 +98,7 @@ public class FruitBase : MonoBehaviour
         }
         isGrabbed = false;
         DistanceFusionCheckerRemove();
+        GetComponent<SimpleRotate>().enabled = true;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.white;

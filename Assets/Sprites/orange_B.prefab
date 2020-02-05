@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 5685016121744929978}
   - component: {fileID: 2412087305494993987}
   - component: {fileID: 8413097140051792816}
-  - component: {fileID: -1901850147755805120}
   m_Layer: 0
   m_Name: orange_B
   m_TagString: Untagged
@@ -101,7 +100,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3, y: -0.4}
+  m_Offset: {x: -0.3, y: -0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +111,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 4.5, y: 4.5}
   m_EdgeRadius: 0
 --- !u!114 &-4117666483315348085
 MonoBehaviour:
@@ -157,6 +156,7 @@ MonoBehaviour:
   fruitType: 1
   fruitPiece: 1
   id: 0
+  grabbedPosOffset: {x: 0, y: 0, z: 0}
 --- !u!50 &2412087305494993987
 Rigidbody2D:
   serializedVersion: 4
@@ -190,18 +190,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcd45e3f879f433bb854388a7e77aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1901850147755805120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6270195381605146568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692d2c323cb954c14ad1abce7d412009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugLabelPrefab: {fileID: 2840551900065985175, guid: 55a18ce99db674084a98aed00c9d9650,
-    type: 3}
-  debugText: {fileID: 0}

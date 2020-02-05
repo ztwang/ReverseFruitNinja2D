@@ -20,9 +20,9 @@ public class EndSceneLogic : MonoBehaviour
             Debug.LogError("No high score label in end scene!");
         }
         int score = PlayerPrefs.GetInt("score");
-        endScoreLabel.text = "Score: " + score;
+        endScoreLabel.text = "SCORE: " + score;
 
         int highScore = PlayerPrefs.GetInt("high_score");
-        endHighScoreLabel.text = "Best: " + highScore;
+        endHighScoreLabel.text = "BEST: " + highScore;
     }
 }

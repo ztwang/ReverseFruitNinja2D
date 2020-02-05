@@ -34,7 +34,7 @@ public class InputHandler : MonoBehaviour
                             // fruit is grabbed by the touch
                             fruitPiece.GetComponent<SimpleGravity>().velocity = Vector3.zero;
                             fruitPiece.GetComponent<SimpleGravity>().gravity = 0.0f;
-                            fruitPiece.GetComponent<FruitBase>().GrabBy(touch.fingerId);
+                            fruitPiece.GetComponent<FruitBase>().GrabBy(touch.fingerId, touchPosition);
                         }
                     }
                     break;
@@ -45,7 +45,7 @@ public class InputHandler : MonoBehaviour
                         if (fruitPiece.GetComponent<FruitBase>().IsGrabbedBy(touch.fingerId))
                         {
                             fruitPiece.transform.position =
-                                    new Vector3(touchPosition.x, touchPosition.y, 0);
+                                    new Vector3(touchPosition.x, touchPosition.y, 0) + fruitPiece.GetComponent<FruitBase>().grabbedPosOffset;
                         }
                     }
                     break;
