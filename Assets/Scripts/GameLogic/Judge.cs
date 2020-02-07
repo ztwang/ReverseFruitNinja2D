@@ -131,11 +131,10 @@ public class Judge : MonoBehaviour
 
     public bool CanRepairFruit(GameObject FruitPiece1, GameObject FruitPiece2)
     {
-        // Disabling this rule for now
-        if (!FruitPiece1.GetComponent<FruitBase>().IsGrabbed()
-            || !FruitPiece2.GetComponent<FruitBase>().IsGrabbed())
+        if (!FruitPiece1.GetComponent<FruitBase>().HasBeenGrabbed()
+            || !FruitPiece2.GetComponent<FruitBase>().HasBeenGrabbed())
         {
-            Debug.Log("At least one of the piece must be grabbed!");
+            Debug.Log("Both pieces must have been grabbed!");
             return false;
         }
 

@@ -30,6 +30,7 @@ public class SelfDestroy : MonoBehaviour
             {
                 fruitList.Remove(gameObject);
             }
+            gameObject.GetComponent<FruitBase>().DistanceFusionCheckerRemove();
             Destroy(gameObject);
 
             // Reset combo
