@@ -758,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7da128ff5f742f39d0b6bf58108cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingPanel: {fileID: 0}
 --- !u!1 &1163217728
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,13 +1083,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1160479273}
         m_MethodName: GoToScene
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: StartScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1640796737

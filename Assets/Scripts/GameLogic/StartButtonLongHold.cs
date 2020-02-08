@@ -60,7 +60,7 @@ public class StartButtonLongHold : MonoBehaviour
     {
         if (gfController)
         {
-            gfController.GoToScene(3);
+            gfController.GoToScene("MainScene_Special");
         }
     }
 
@@ -68,7 +68,7 @@ public class StartButtonLongHold : MonoBehaviour
     {
         if (gfController)
         {
-            gfController.GoToScene(1);
+            gfController.GoToScene("MainScene");
         }
     }
 }

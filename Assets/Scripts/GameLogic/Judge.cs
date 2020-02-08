@@ -112,7 +112,7 @@ public class Judge : MonoBehaviour
         if (gameFlowController)
         {
             // Switch to end scene
-            gameFlowController.GoToScene(2);
+            gameFlowController.GoToScene("EndScene");
         }
     }
 
