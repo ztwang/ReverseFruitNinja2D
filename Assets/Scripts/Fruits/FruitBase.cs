@@ -7,10 +7,13 @@ public class FruitBase : MonoBehaviour
     public enum FruitType
     {
         Apple = 0,
-        Orange = 1,
-        Watermelon = 2,
-        Banana = 3,
-        Strawberry = 4,
+        Orange,
+        Banana,
+        Strawberry,
+        Pen,
+        PenApple,
+        ApplePen,
+        Watermelon,
     }
 
     public enum FruitPiece
@@ -24,8 +27,11 @@ public class FruitBase : MonoBehaviour
     public FruitPiece fruitPiece;
     public int id;
 
-    bool isGrabbed;
+    bool isGrabbed = false;
+    bool hasBeenGrabbed = false;
     int grabbedFingerId = -1;
+
+    public Vector3 grabbedPosOffset;
 
     GameObject godObject;
 
@@ -39,32 +45,7 @@ public class FruitBase : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isGrabbed)
-        {
-            // TODO: don't use collision, check distance directly?
-            //List<GameObject> fruitList = pieceGenerator.ActiveFruitList;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        /*if (collision.gameObject.GetComponent<FruitBase>() != null)
-        {
-            //Debug.Log("Colliding with another fruit:" + collision.gameObject.name);
-            Judge judge = godObject.GetComponent<Judge>();
-            if (judge.CanRepairFruit(gameObject, collision.gameObject))
-            {
-                Debug.Log("Repairing fruit!");
-                Release();
-                judge.RepairFruit(gameObject, collision.gameObject);
-            }
-        }*/
-    }
-
-    public void GrabBy(int fingerId)
+    public void GrabBy(int fingerId, Vector2 touchPosition)
     {
         if (isGrabbed)
         {
@@ -73,10 +54,14 @@ public class FruitBase : MonoBehaviour
         }
 
         isGrabbed = true;
+        // TODO: start a timer to cancel the state.
+        hasBeenGrabbed = true;
         grabbedFingerId = fingerId;
         Debug.Log("Object grabbed by finger: " + fingerId);
 
         DistanceFusionCheckerAdd();
+        grabbedPosOffset = transform.position - new Vector3(touchPosition.x, touchPosition.y, 0f);
+        GetComponent<SimpleRotate>().enabled = false;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.green;
@@ -90,7 +75,8 @@ public class FruitBase : MonoBehaviour
             return;
         }
         isGrabbed = false;
-        DistanceFusionCheckerRemove();
+        //DistanceFusionCheckerRemove();
+        GetComponent<SimpleRotate>().enabled = true;
 
         // DEBUG
         GetComponent<SpriteRenderer>().color = Color.white;
@@ -104,6 +90,10 @@ public class FruitBase : MonoBehaviour
     {
         return isGrabbed;
     }
+    public bool HasBeenGrabbed()
+    {
+        return hasBeenGrabbed;
+    }
 
     private void DistanceFusionCheckerAdd()
     {
@@ -114,7 +104,7 @@ public class FruitBase : MonoBehaviour
         }
     }
 
-    private void DistanceFusionCheckerRemove()
+    public void DistanceFusionCheckerRemove()
     {
         DistanceFusionChecker checker = godObject.GetComponent<DistanceFusionChecker>();
         if (checker)

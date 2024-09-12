@@ -15,6 +15,6 @@ public class StartSceneLogic : MonoBehaviour
             Debug.LogError("No high score label in end scene!");
         }
         int highScore = PlayerPrefs.GetInt("high_score");
-        startHighScoreLabel.text = "Best: " + highScore;
+        startHighScoreLabel.text = "BEST: " + highScore;
     }
 }

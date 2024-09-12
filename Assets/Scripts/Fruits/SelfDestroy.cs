@@ -30,7 +30,18 @@ public class SelfDestroy : MonoBehaviour
             {
                 fruitList.Remove(gameObject);
             }
+            gameObject.GetComponent<FruitBase>().DistanceFusionCheckerRemove();
             Destroy(gameObject);
+
+            // Reset combo
+            if (GetComponent<FruitBase>().fruitPiece != FruitBase.FruitPiece.Whole)
+            {
+                ComboManager comboManager = godObject.GetComponent<ComboManager>();
+                if (comboManager)
+                {
+                    comboManager.Reset();
+                }
+            }
         }
     }
 }
